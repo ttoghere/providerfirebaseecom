@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/providers/dark_theme_provider.dart';
 
+import '../shared/theme_switch.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
     Key? key,
@@ -12,16 +14,7 @@ class HomeScreen extends StatelessWidget {
     final themeState = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       body: Center(
-        child: SwitchListTile(
-          title: Text("Theme"),
-          secondary: themeState.getDarkTheme
-              ? Icon(Icons.dark_mode_outlined)
-              : Icon(Icons.light_mode_outlined),
-          onChanged: (value) {
-            themeState.setDarkTheme = value;
-          },
-          value: themeState.getDarkTheme,
-        ),
+        child: ThemeSwitch(themeState: themeState),
       ),
     );
   }

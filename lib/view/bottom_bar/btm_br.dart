@@ -16,11 +16,11 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int _selectedIndex = 0;
-  List<Widget> _pages = [
-    HomeScreen(),
-    CategoriesScreen(),
-    CartScreen(),
-    UserScreen(),
+  List<Map<String, dynamic>> _pages = [
+    {"page": HomeScreen(), "title": "Home Screen"},
+    {"page": CategoriesScreen(), "title": "Categories"},
+    {"page": CartScreen(), "title": "Cart"},
+    {"page": UserScreen(), "title": "User Screen"},
   ];
   void _selectedPage(int index) {
     setState(() {
@@ -32,7 +32,11 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
-      body: _pages[_selectedIndex],
+      // appBar: AppBar(
+      //   title: Text(_pages[_selectedIndex]["title"]),
+      //   centerTitle: true,
+      // ),
+      body: _pages[_selectedIndex]["page"],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: themeState.getDarkTheme
             ? Theme.of(context).cardColor
