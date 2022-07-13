@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/providers/dark_theme_provider.dart';
-
-import '../shared/theme_switch.dart';
+import 'package:providerfirebaseecom/view/shared/theme_switch.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/providers/dark_theme_provider.dart';
-import 'package:providerfirebaseecom/view/cart/cart_screen.dart';
-import 'package:providerfirebaseecom/view/categories/categories_screen.dart';
-import 'package:providerfirebaseecom/view/home/home_screen.dart';
+import 'package:providerfirebaseecom/view/screens/screens_shelf.dart';
 import 'package:providerfirebaseecom/view/user/user_screen.dart';
 
 class BottomBar extends StatefulWidget {

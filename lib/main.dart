@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/providers/dark_theme_provider.dart';
-import 'package:providerfirebaseecom/view/bottom_bar/btm_br.dart';
 import 'package:providerfirebaseecom/view/consts/theme_data.dart';
+import 'package:providerfirebaseecom/view/screens/screens_shelf.dart';
 
 void main() => runApp(MyApp());
 
