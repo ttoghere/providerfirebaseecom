@@ -4,6 +4,9 @@ class Styles {
   static ThemeData themeData(
       {required bool isDarkTheme, required BuildContext context}) {
     return ThemeData(
+      appBarTheme: AppBarTheme(
+        backgroundColor: isDarkTheme ? Colors.white : Colors.black,
+      ),
       textTheme: TextTheme(
         headline1: TextStyle(
           color: isDarkTheme ? Colors.blue[300] : Colors.red[900],

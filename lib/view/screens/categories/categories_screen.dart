@@ -27,7 +27,7 @@ class CategoriesScreen extends StatelessWidget {
       mainAxisSpacing: 10,
       children: List.generate(
         6,
-        (index) => CategoriesWidget(imageUrl: testPic, title: "Tunç",colorB: gridColors[index],),
+        (index) => CategoriesWidget(imageUrl: testPic2, title: "Tunç",colorB: gridColors[index],),
       ),
     );
   }
@@ -68,7 +68,7 @@ class CategoriesWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.network(
-                  testPic,
+                  testPic2,
                   fit: BoxFit.fill,
                 ),
               ),

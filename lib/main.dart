@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/providers/dark_theme_provider.dart';
 import 'package:providerfirebaseecom/view/consts/theme_data.dart';
+import 'package:providerfirebaseecom/view/screens/feeds_screen/feeds_screen.dart';
 import 'package:providerfirebaseecom/view/screens/screens_shelf.dart';
+
+import 'view/screens/on_sale/on_sale_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -44,6 +47,10 @@ class _MyAppState extends State<MyApp> {
                 isDarkTheme: themeProviderConsumer.getDarkTheme,
                 context: context),
             home: BottomBar(),
+            routes: {
+              OnSaleScreen.routeName: (context) => OnSaleScreen(),
+              FeedsScreen.routeName: (context) => FeedsScreen(),
+            },
           );
         },
       ),
