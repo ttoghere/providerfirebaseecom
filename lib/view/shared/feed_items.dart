@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:providerfirebaseecom/app/services/global_methods.dart';
 import 'package:providerfirebaseecom/app/services/utils.dart';
 import 'package:providerfirebaseecom/view/consts/const_variables.dart';
+import 'package:providerfirebaseecom/view/screens/detail/detail_screen.dart';
 import 'package:providerfirebaseecom/view/screens/feeds_screen/feeds_screen.dart';
 import 'package:providerfirebaseecom/view/shared/heart_btn.dart';
 import 'package:providerfirebaseecom/view/shared/price_widget.dart';
@@ -32,7 +33,7 @@ class _FeedsItemsState extends State<FeedsItems> {
       child: InkWell(
         onTap: () {
           GlobalMethods.navigateTo(
-              context: context, routeName: FeedsScreen.routeName);
+              context: context, routeName: DetailScreen.productDetail);
         },
         borderRadius: BorderRadius.circular(12),
         child: Column(

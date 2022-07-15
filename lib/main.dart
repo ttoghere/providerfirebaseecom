@@ -4,7 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/providers/dark_theme_provider.dart';
 import 'package:providerfirebaseecom/view/consts/theme_data.dart';
 import 'package:providerfirebaseecom/view/screens/feeds_screen/feeds_screen.dart';
+import 'package:providerfirebaseecom/view/screens/order/order_screen.dart';
 import 'package:providerfirebaseecom/view/screens/screens_shelf.dart';
+import 'package:providerfirebaseecom/view/screens/viewed/viewed.dart';
+import 'package:providerfirebaseecom/view/screens/viewed/viewed_widget.dart';
+import 'package:providerfirebaseecom/view/screens/wishlist/wishlist_screen.dart';
 
 import 'view/screens/on_sale/on_sale_screen.dart';
 
@@ -50,6 +54,11 @@ class _MyAppState extends State<MyApp> {
             routes: {
               OnSaleScreen.routeName: (context) => OnSaleScreen(),
               FeedsScreen.routeName: (context) => FeedsScreen(),
+              DetailScreen.productDetail: (context) => DetailScreen(),
+              WishlistScreen.routeName: (context) => WishlistScreen(),
+              OrdersScreen.routeName: (context) => OrdersScreen(),
+              ViewedRecentlyScreen.routeName: (context) =>
+                  ViewedRecentlyScreen(),
             },
           );
         },

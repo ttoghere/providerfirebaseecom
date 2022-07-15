@@ -29,43 +29,41 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
-    return SafeArea(
-      child: Scaffold(
-        // appBar: AppBar(
-        //   title: Text(_pages[_selectedIndex]["title"]),
-        //   centerTitle: true,
-        // ),
-        body: _pages[_selectedIndex]["page"],
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: themeState.getDarkTheme
-              ? Theme.of(context).cardColor
-              : Colors.white,
-          type: BottomNavigationBarType.shifting,
-          currentIndex: _selectedIndex,
-          onTap: _selectedPage,
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(
-                  IconlyBold.home,
-                ),
-                label: "Home"),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  IconlyBold.category,
-                ),
-                label: "Category"),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  IconlyBold.buy,
-                ),
-                label: "Cart"),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  IconlyBold.user3,
-                ),
-                label: "User"),
-          ],
-        ),
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: Text(_pages[_selectedIndex]["title"]),
+      //   centerTitle: true,
+      // ),
+      body: _pages[_selectedIndex]["page"],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: themeState.getDarkTheme
+            ? Theme.of(context).cardColor
+            : Colors.white,
+        type: BottomNavigationBarType.shifting,
+        currentIndex: _selectedIndex,
+        onTap: _selectedPage,
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(
+                IconlyBold.home,
+              ),
+              label: "Home"),
+          BottomNavigationBarItem(
+              icon: Icon(
+                IconlyBold.category,
+              ),
+              label: "Category"),
+          BottomNavigationBarItem(
+              icon: Icon(
+                IconlyBold.buy,
+              ),
+              label: "Cart"),
+          BottomNavigationBarItem(
+              icon: Icon(
+                IconlyBold.user3,
+              ),
+              label: "User"),
+        ],
       ),
     );
   }

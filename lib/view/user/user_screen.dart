@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/providers/dark_theme_provider.dart';
+import 'package:providerfirebaseecom/app/services/global_methods.dart';
+import 'package:providerfirebaseecom/view/screens/order/order_screen.dart';
+import 'package:providerfirebaseecom/view/screens/viewed/viewed.dart';
+import 'package:providerfirebaseecom/view/screens/wishlist/wishlist_screen.dart';
 import 'package:providerfirebaseecom/view/shared/theme_switch.dart';
 import 'package:providerfirebaseecom/view/user/widgets/option_tile.dart';
 
@@ -76,19 +80,28 @@ class _UserScreenState extends State<UserScreen> {
         OptionTile(
           title: "Orders",
           subtitle: "Subtitle Here",
-          onTap: () {},
+          onTap: () {
+            GlobalMethods.navigateTo(
+                context: context, routeName: OrdersScreen.routeName);
+          },
           icon: IconlyBold.bag2,
         ),
         OptionTile(
           title: "Wishlist",
           subtitle: "Subtitle Here",
-          onTap: () {},
+          onTap: () {
+            GlobalMethods.navigateTo(
+                context: context, routeName: WishlistScreen.routeName);
+          },
           icon: IconlyBold.heart,
         ),
         OptionTile(
           title: "Viewed",
           subtitle: "Subtitle Here",
-          onTap: () {},
+          onTap: () {
+            GlobalMethods.navigateTo(
+                context: context, routeName: ViewedRecentlyScreen.routeName);
+          },
           icon: IconlyBold.show,
         ),
         OptionTile(
@@ -102,42 +115,16 @@ class _UserScreenState extends State<UserScreen> {
           title: "Log Out",
           subtitle: "Subtitle Here",
           onTap: () async {
-            _logOutDialog();
+            GlobalMethods.warningDialog(
+              context: context,
+              title: "Sign Out",
+              subtitle: "Do you want to sign out?",
+              fct: () {},
+            );
           },
           icon: IconlyBold.logout,
         ),
       ],
-    );
-  }
-
-  Future<void> _logOutDialog() async {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(
-          "Sign Out",
-          textAlign: TextAlign.center,
-        ),
-        content: Text("Do you want to sign out?"),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(false);
-            },
-            child: Text(
-              "No",
-              style: TextStyle(color: Colors.red[900]),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(true);
-            },
-            child: Text("Yes",              style: TextStyle(color: Colors.green[900]),
-),
-          ),
-        ],
-      ),
     );
   }
 
