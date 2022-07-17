@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/providers/dark_theme_provider.dart';
 import 'package:providerfirebaseecom/view/consts/theme_data.dart';
+import 'package:providerfirebaseecom/view/screens/auth/fPass_screen.dart';
+import 'package:providerfirebaseecom/view/screens/auth/login_screen.dart';
+import 'package:providerfirebaseecom/view/screens/auth/register_screen.dart';
 import 'package:providerfirebaseecom/view/screens/feeds_screen/feeds_screen.dart';
 import 'package:providerfirebaseecom/view/screens/order/order_screen.dart';
 import 'package:providerfirebaseecom/view/screens/screens_shelf.dart';
@@ -50,7 +53,7 @@ class _MyAppState extends State<MyApp> {
             theme: Styles.themeData(
                 isDarkTheme: themeProviderConsumer.getDarkTheme,
                 context: context),
-            home: BottomBar(),
+            home: LoginScreen(),
             routes: {
               OnSaleScreen.routeName: (context) => OnSaleScreen(),
               FeedsScreen.routeName: (context) => FeedsScreen(),
@@ -59,6 +62,10 @@ class _MyAppState extends State<MyApp> {
               OrdersScreen.routeName: (context) => OrdersScreen(),
               ViewedRecentlyScreen.routeName: (context) =>
                   ViewedRecentlyScreen(),
+              LoginScreen.routeName: (context) => LoginScreen(),
+              RegisterScreen.routeName: (context) => RegisterScreen(),
+              ForgetPasswordScreen.routeName: (context) =>
+                  ForgetPasswordScreen(),
             },
           );
         },

@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
@@ -54,8 +55,24 @@ class _BottomBarState extends State<BottomBar> {
               ),
               label: "Category"),
           BottomNavigationBarItem(
-              icon: Icon(
-                IconlyBold.buy,
+              icon: Badge(
+                toAnimate: true,
+                shape: BadgeShape.circle,
+                badgeColor: Colors.red[900]!,
+                borderRadius: BorderRadius.circular(8),
+                position: BadgePosition.topEnd(top: -7, end: -7),
+                badgeContent: FittedBox(
+                  child: Text(
+                    "1",
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                  ),
+                ),
+                child: Icon(
+                  IconlyBold.buy,
+                ),
               ),
               label: "Cart"),
           BottomNavigationBarItem(
