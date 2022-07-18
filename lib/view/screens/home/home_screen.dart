@@ -1,11 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:providerfirebaseecom/app/services/global_methods.dart';
+import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/services/utils.dart';
 import 'package:providerfirebaseecom/view/consts/const_variables.dart';
 import 'package:providerfirebaseecom/view/shared/feed_items.dart';
 import 'package:providerfirebaseecom/view/shared/on_sale_widget.dart';
+import '../../../app/classes/classes_shelf.dart';
+import '../../../app/providers/products_provider.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({
@@ -16,6 +18,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = Utils(context: context).screenSize;
+    final productProvier = Provider.of<ProductsProvider>(context);
+    List<Product> allProducts = productProvier.getProducts;
+    List<Product> onSaleProducts = productProvier.getOnSaleProducts;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -73,10 +78,12 @@ class HomeScreen extends StatelessWidget {
                   child: SizedBox(
                     height: Utils(context: context).screenSize.height * 0.2,
                     child: ListView.builder(
-                      itemCount: 10,
+                      itemCount: onSaleProducts.length>10?onSaleProducts.length:10,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (contect, index) {
-                        return OnSaleWidget();
+                        return ChangeNotifierProvider.value(
+                          value: onSaleProducts[index],
+                            child: OnSaleWidget());
                       },
                     ),
                   ),
@@ -113,9 +120,13 @@ class HomeScreen extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 crossAxisCount: 2,
-                childAspectRatio: size.width / (size.height * 0.60),
-                children: List.generate(4, (index) {
-                  return FeedsItems();
+                childAspectRatio: size.width / (size.height * 0.75),
+                children: List.generate(
+                    allProducts.length > 4 ? allProducts.length : 4, (index) {
+                  return ChangeNotifierProvider.value(
+                    value: allProducts[index],
+                    child: FeedsItems(),
+                  );
                 }),
               ),
             )

@@ -7,7 +7,8 @@ import 'package:providerfirebaseecom/view/screens/order/order_screen.dart';
 import 'package:providerfirebaseecom/view/screens/viewed/viewed.dart';
 import 'package:providerfirebaseecom/view/screens/wishlist/wishlist_screen.dart';
 import 'package:providerfirebaseecom/view/shared/theme_switch.dart';
-import 'package:providerfirebaseecom/view/user/widgets/option_tile.dart';
+
+import 'widgets/option_tile.dart';
 
 class UserScreen extends StatefulWidget {
   UserScreen({Key? key}) : super(key: key);

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:providerfirebaseecom/app/classes/product.dart';
+import 'package:providerfirebaseecom/app/providers/provider_shelf.dart';
 import 'package:providerfirebaseecom/app/services/utils.dart';
 import 'package:providerfirebaseecom/view/shared/on_sale_widget.dart';
 
@@ -8,8 +11,9 @@ class OnSaleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool _isEmpty = false;
     Size size = Utils(context: context).screenSize;
+    final productProvider = Provider.of<ProductsProvider>(context);
+    List<Product> productsOnSale = productProvider.getOnSaleProducts;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -23,20 +27,22 @@ class OnSaleScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.headline1,
         ),
       ),
-      body: _isEmpty
-          ? Center(
-              child: Text("No Products on sale yet!.\n Try again later"),
-            )
-          : GridView.count(
+      body: !productsOnSale.isEmpty
+          ? GridView.count(
               crossAxisCount: 2,
               shrinkWrap: true,
               padding: EdgeInsets.zero,
               childAspectRatio: size.width / (size.height * 0.45),
               children: List.generate(
-                16,
-                (index) => OnSaleWidget(),
+                productsOnSale.length,
+                (index) => ChangeNotifierProvider.value(
+                  value: productsOnSale[index],
+                  child: OnSaleWidget(),
+                ),
               ),
-            ),
+            )
+          : 
+          Center(child: Text("No products on sale"),)
     );
   }
 }

@@ -1,10 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'package:providerfirebaseecom/app/providers/dark_theme_provider.dart';
 import 'package:providerfirebaseecom/view/consts/const_variables.dart';
-
 import '../../shared/categories_widget.dart';
 
 class CategoriesScreen extends StatelessWidget {

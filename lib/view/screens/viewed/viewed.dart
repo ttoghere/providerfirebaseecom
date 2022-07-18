@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:providerfirebaseecom/view/screens/viewed/viewed_widget.dart';
 
-import '../../../app/services/global_methods.dart';
-import '../../../app/services/utils.dart';
-import '../order/order_screen.dart';
+import '../../../app/services/services_shelf.dart';
+import '../screens_shelf.dart';
+import 'viewed_widget.dart';
+
 
 class ViewedRecentlyScreen extends StatefulWidget {
   static const routeName = '/ViewedRecentlyScreen';

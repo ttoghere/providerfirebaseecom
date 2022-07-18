@@ -1,19 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:providerfirebaseecom/app/providers/dark_theme_provider.dart';
-import 'package:providerfirebaseecom/view/consts/theme_data.dart';
-import 'package:providerfirebaseecom/view/screens/auth/fPass_screen.dart';
-import 'package:providerfirebaseecom/view/screens/auth/login_screen.dart';
-import 'package:providerfirebaseecom/view/screens/auth/register_screen.dart';
-import 'package:providerfirebaseecom/view/screens/feeds_screen/feeds_screen.dart';
-import 'package:providerfirebaseecom/view/screens/order/order_screen.dart';
-import 'package:providerfirebaseecom/view/screens/screens_shelf.dart';
-import 'package:providerfirebaseecom/view/screens/viewed/viewed.dart';
-import 'package:providerfirebaseecom/view/screens/viewed/viewed_widget.dart';
-import 'package:providerfirebaseecom/view/screens/wishlist/wishlist_screen.dart';
-
-import 'view/screens/on_sale/on_sale_screen.dart';
+import 'package:providerfirebaseecom/app/providers/products_provider.dart';
+import 'app/providers/provider_shelf.dart';
+import 'view/consts/consts_shelf.dart';
+import 'view/screens/screens_shelf.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,6 +19,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   DarkThemeProvider themeProvider = DarkThemeProvider();
+  ProductsProvider productsProvider = ProductsProvider();
 
   void getCurrentAppTheme() async {
     themeProvider.setDarkTheme = await themeProvider.darkThemePrefs.getTheme();
@@ -44,6 +36,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: themeProvider),
+        ChangeNotifierProvider.value(value: productsProvider),
       ],
       child: Consumer<DarkThemeProvider>(
         builder: (context, themeProviderConsumer, child) {
@@ -53,7 +46,7 @@ class _MyAppState extends State<MyApp> {
             theme: Styles.themeData(
                 isDarkTheme: themeProviderConsumer.getDarkTheme,
                 context: context),
-            home: LoginScreen(),
+            home: HomeScreen(),
             routes: {
               OnSaleScreen.routeName: (context) => OnSaleScreen(),
               FeedsScreen.routeName: (context) => FeedsScreen(),

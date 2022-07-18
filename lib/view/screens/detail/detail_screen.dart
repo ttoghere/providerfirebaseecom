@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:providerfirebaseecom/app/services/utils.dart';
-import 'package:providerfirebaseecom/view/consts/const_variables.dart';
-import 'package:providerfirebaseecom/view/shared/heart_btn.dart';
+import '../../../app/services/services_shelf.dart';
+import '../../consts/consts_shelf.dart';
+import '../../shared/heart_btn.dart';
+
 
 class DetailScreen extends StatefulWidget {
   static const productDetail = "/productdetail";
@@ -100,6 +101,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               .bodyText1!
                               .copyWith(color: Colors.green, fontSize: 15),
                         ),
+                        SizedBox(width: 5,),
                         Text(
                           "Piece / Kg",
                           style: Theme.of(context).textTheme.bodyText1,

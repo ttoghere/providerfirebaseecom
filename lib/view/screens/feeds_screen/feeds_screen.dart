@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:providerfirebaseecom/app/services/utils.dart';
-import 'package:providerfirebaseecom/view/shared/feed_items.dart';
+import 'package:provider/provider.dart';
+import 'package:providerfirebaseecom/app/classes/product.dart';
+import 'package:providerfirebaseecom/app/providers/products_provider.dart';
+import 'package:providerfirebaseecom/view/consts/consts_shelf.dart';
+import '../../../app/services/services_shelf.dart';
+import '../../shared/feed_items.dart';
 
 class FeedsScreen extends StatefulWidget {
   const FeedsScreen({Key? key}) : super(key: key);
@@ -24,6 +28,8 @@ class _FeedsScreenState extends State<FeedsScreen> {
   Widget build(BuildContext context) {
     Color color = Utils(context: context).color;
     Size size = Utils(context: context).screenSize;
+    final productProvier = Provider.of<ProductsProvider>(context);
+    List<Product> allProducts = productProvier.getProducts;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -41,9 +47,9 @@ class _FeedsScreenState extends State<FeedsScreen> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top:8.0),
+              padding: const EdgeInsets.only(top: 8.0),
               child: SizedBox(
-                height: MediaQuery.of(context).size.height*0.1,
+                height: MediaQuery.of(context).size.height * 0.1,
                 child: TextField(
                   focusNode: searchFocusNode,
                   controller: searchTextController,
@@ -53,11 +59,13 @@ class _FeedsScreenState extends State<FeedsScreen> {
                   decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.green[900]!, width: 1),
+                        borderSide:
+                            BorderSide(color: Colors.green[900]!, width: 1),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.green[900]!, width: 1),
+                        borderSide:
+                            BorderSide(color: Colors.green[900]!, width: 1),
                       ),
                       hintText: "What's on your mind ?",
                       prefixIcon: Icon(Icons.search),
@@ -83,7 +91,8 @@ class _FeedsScreenState extends State<FeedsScreen> {
                 childAspectRatio: size.width / (size.height * 0.70),
                 children: List.generate(
                   16,
-                  (index) => FeedsItems(),
+                  (index) => ChangeNotifierProvider.value(
+                      value: allProducts[index], child: FeedsItems()),
                 ),
               ),
             ),

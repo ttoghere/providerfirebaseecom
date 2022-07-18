@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../app/services/global_methods.dart';
-import '../../../app/services/utils.dart';
-import '../feeds_screen/feeds_screen.dart';
+
+import '../../../app/services/services_shelf.dart';
+import '../screens_shelf.dart';
+
 
 class EmptyScreen extends StatelessWidget {
   const EmptyScreen(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:providerfirebaseecom/app/classes/product.dart';
 import 'package:providerfirebaseecom/app/services/utils.dart';
 import 'package:providerfirebaseecom/view/consts/const_variables.dart';
 import 'package:providerfirebaseecom/view/screens/on_sale/on_sale_screen.dart';
@@ -19,6 +21,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
   @override
   Widget build(BuildContext context) {
     Size size = Utils(context: context).screenSize;
+    final productProvider = Provider.of<Product>(context);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8),
       child: Material(
@@ -37,7 +40,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.network(
-                      testPic2,
+                      productProvider.imageUrl,
                       height: size.width * 0.20,
                       fit: BoxFit.fill,
                     ),
@@ -58,16 +61,16 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                         ),
                         Row(children: [BagButton(), HeartButton()]),
                         PriceWidget(
-                          price: 5.9,
+                          price: productProvider.price,
                           textPrice: "1",
                           isOnSale: true,
-                          salePrice: 2.99,
+                          salePrice: productProvider.salePrice,
                         ),
                         SizedBox(
                           height: 5,
                         ),
                         Text(
-                          "Product Title",
+                          productProvider.title,
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2!

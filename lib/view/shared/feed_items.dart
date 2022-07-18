@@ -1,16 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/services/global_methods.dart';
 import 'package:providerfirebaseecom/app/services/utils.dart';
-import 'package:providerfirebaseecom/view/consts/const_variables.dart';
 import 'package:providerfirebaseecom/view/screens/detail/detail_screen.dart';
-import 'package:providerfirebaseecom/view/screens/feeds_screen/feeds_screen.dart';
 import 'package:providerfirebaseecom/view/shared/heart_btn.dart';
 import 'package:providerfirebaseecom/view/shared/price_widget.dart';
+import '../../app/classes/classes_shelf.dart';
 
 class FeedsItems extends StatefulWidget {
-  const FeedsItems({Key? key}) : super(key: key);
-
   @override
   State<FeedsItems> createState() => _FeedsItemsState();
 }
@@ -27,6 +26,7 @@ class _FeedsItemsState extends State<FeedsItems> {
   @override
   Widget build(BuildContext context) {
     Size size = Utils(context: context).screenSize;
+    final productProvier = Provider.of<Product>(context);
     return Material(
       borderRadius: BorderRadius.circular(12),
       color: Theme.of(context).cardColor,
@@ -39,7 +39,7 @@ class _FeedsItemsState extends State<FeedsItems> {
         child: Column(
           children: [
             Image.network(
-              testPic2,
+             productProvier.imageUrl ,
               height: size.width * 0.22,
               width: size.width * 0.22,
               fit: BoxFit.fill,
@@ -51,14 +51,17 @@ class _FeedsItemsState extends State<FeedsItems> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Title",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2!
-                        .copyWith(fontSize: 18),
+                  Flexible(
+                    flex: 3,
+                    child: Text(
+                     productProvier.title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(fontSize: 16),
+                    ),
                   ),
-                  HeartButton(),
+                  Flexible(flex: 1, child: HeartButton()),
                 ],
               ),
             ),
@@ -72,28 +75,27 @@ class _FeedsItemsState extends State<FeedsItems> {
                         Flexible(
                           flex: 4,
                           child: PriceWidget(
-                            price: 5.9,
+                            price: productProvier.price,
                             textPrice: saleCountEC.text,
                             isOnSale: true,
-                            salePrice: 2.99,
+                            salePrice: productProvier.salePrice,
                           ),
                         ),
                         SizedBox(
                           width: 8,
                         ),
                         Flexible(
+                          flex: 2,
                           child: Row(
                             children: [
-                              FittedBox(
-                                child: Text(
-                                  "KG",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText2!
-                                      .copyWith(
-                                        fontSize: 16,
-                                      ),
-                                ),
+                              Text(
+                               productProvier.isPiece?"Piece":"Kg",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(
+                                      fontSize: 16,
+                                    ),
                               ),
                               SizedBox(
                                 width: 5,

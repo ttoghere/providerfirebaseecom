@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:providerfirebaseecom/view/screens/detail/detail_screen.dart';
-
-import '../../../app/services/global_methods.dart';
-import '../../../app/services/utils.dart';
+import 'package:providerfirebaseecom/view/screens/screens_shelf.dart';
+import '../../../app/services/services_shelf.dart';
 
 class ViewedRecentlyWidget extends StatefulWidget {
   const ViewedRecentlyWidget({Key? key}) : super(key: key);
