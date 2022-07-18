@@ -1,57 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../app/providers/dark_theme_provider.dart';
-import '../consts/const_variables.dart';
+import 'package:providerfirebaseecom/view/shared/cat_screen.dart';
+
+import '../../app/providers/provider_shelf.dart';
 
 class CategoriesWidget extends StatelessWidget {
-  final Color colorB;
-  final String imageUrl;
-  final String title;
-  CategoriesWidget({
-    Key? key,
-    required this.colorB,
-    required this.imageUrl,
-    required this.title,
-  }) : super(key: key);
-
+  const CategoriesWidget(
+      {Key? key,
+      required this.catText,
+      required this.imgPath,
+      required this.passedColor})
+      : super(key: key);
+  final String catText, imgPath;
+  final Color passedColor;
   @override
   Widget build(BuildContext context) {
+    // Size size = MediaQuery.of(context).size;
     final themeState = Provider.of<DarkThemeProvider>(context);
     double _screenWidth = MediaQuery.of(context).size.width;
     final Color color = themeState.getDarkTheme ? Colors.white : Colors.black;
-    return GestureDetector(
-      onTap: () {},
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, CatScreen.routeName,
+            arguments: catText);
+      },
       child: Container(
-        height: _screenWidth * 0.33,
-        width: _screenWidth * 0.33,
+        // height: _screenWidth * 0.6,
         decoration: BoxDecoration(
-          color: colorB.withOpacity(0.2),
+          color: passedColor.withOpacity(0.1),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: colorB, width: 2),
+          border: Border.all(
+            color: passedColor.withOpacity(0.7),
+            width: 2,
+          ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              height: _screenWidth * 0.3,
-              width: _screenWidth * 0.3,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.network(
-                  testPic2,
-                  fit: BoxFit.fill,
-                ),
-              ),
+        child: Column(children: [
+          // Container for the image
+          Container(
+            height: _screenWidth * 0.3,
+            width: _screenWidth * 0.3,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(
+                    imgPath,
+                  ),
+                  fit: BoxFit.fill),
             ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              title,
-              style: TextStyle(color: color),
-            ),
-          ],
-        ),
+          ),
+          // Category name
+          Text(catText,style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),)
+        ]),
       ),
     );
   }

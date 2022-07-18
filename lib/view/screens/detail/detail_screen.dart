@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
+import 'package:providerfirebaseecom/app/classes/product.dart';
+import 'package:providerfirebaseecom/app/providers/provider_shelf.dart';
 import '../../../app/services/services_shelf.dart';
 import '../../consts/consts_shelf.dart';
 import '../../shared/heart_btn.dart';
-
 
 class DetailScreen extends StatefulWidget {
   static const productDetail = "/productdetail";
@@ -27,6 +29,9 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     Color color = Utils(context: context).color;
     Size size = Utils(context: context).screenSize;
+    final productId = ModalRoute.of(context)!.settings.arguments as String;
+    final productProvider = Provider.of<ProductsProvider>(context);
+    final getCurrentProduct = productProvider.findProdById(productId);
     return WillPopScope(
       onWillPop: () {
         return Future.delayed(
@@ -51,7 +56,7 @@ class _DetailScreenState extends State<DetailScreen> {
           Flexible(
             flex: 2,
             child: Image.network(
-              testPic2,
+             getCurrentProduct.imageUrl,
               fit: BoxFit.scaleDown,
               width: size.width,
             ),
@@ -77,7 +82,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       children: [
                         Flexible(
                             child: Text(
-                          "Title",
+                          getCurrentProduct.title,
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2!
@@ -95,15 +100,17 @@ class _DetailScreenState extends State<DetailScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "price",
+                          getCurrentProduct.price.toString(),
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
                               .copyWith(color: Colors.green, fontSize: 15),
                         ),
-                        SizedBox(width: 5,),
+                        SizedBox(
+                          width: 5,
+                        ),
                         Text(
-                          "Piece / Kg",
+                          getCurrentProduct.isPiece ? "KG" : "Piece",
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                         const SizedBox(
@@ -112,7 +119,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         Visibility(
                           visible: true,
                           child: Text(
-                            '\$26.55',
+                            '\$${getCurrentProduct.salePrice}',
                             style: TextStyle(
                                 fontSize: 15,
                                 color: color,
@@ -220,15 +227,15 @@ class _DetailScreenState extends State<DetailScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Total"),
+                              Text(
+                                  "${(getCurrentProduct.price * int.parse(_quantityTextController.text)).toStringAsFixed(2)}"),
                               SizedBox(
                                 height: 5,
                               ),
                               FittedBox(
                                 child: Row(
                                   children: [
-                                    Text(_quantityTextController.text),
-                                    Text(_quantityTextController.text),
+                                    Text("x ${_quantityTextController.text}"),
                                   ],
                                 ),
                               ),

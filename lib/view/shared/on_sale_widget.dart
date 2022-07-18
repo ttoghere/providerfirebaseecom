@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/classes/product.dart';
 import 'package:providerfirebaseecom/app/services/utils.dart';
 import 'package:providerfirebaseecom/view/consts/const_variables.dart';
+import 'package:providerfirebaseecom/view/screens/detail/detail_screen.dart';
 import 'package:providerfirebaseecom/view/screens/on_sale/on_sale_screen.dart';
 import 'package:providerfirebaseecom/view/shared/bag_btn.dart';
 import 'package:providerfirebaseecom/view/shared/heart_btn.dart';
@@ -30,8 +31,8 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: () {
-            GlobalMethods.navigateTo(
-                context: context, routeName: OnSaleScreen.routeName);
+            Navigator.of(context).pushNamed(DetailScreen.productDetail,
+                arguments: productProvider.id);
           },
           child: Column(children: [
             Row(crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,36 +1,74 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:providerfirebaseecom/view/consts/const_variables.dart';
+import '../../../app/services/services_shelf.dart';
 import '../../shared/categories_widget.dart';
 
 class CategoriesScreen extends StatelessWidget {
   CategoriesScreen({Key? key}) : super(key: key);
-  List<Color> gridColors = [
-    Color(0xFF53B175),
-    Color(0xFFF8A55C),
-    Color(0xFFF7A594),
-    Color(0xFFD3B0E0),
-    Color(0xFFFDE598),
-    Color(0xFFB7DFF5),
-  ];
-  List<Map<String, dynamic>> catInfo = [];
 
+  List<Color> gridColors = [
+    const Color(0xff53B175),
+    const Color(0xffF8A44C),
+    const Color(0xffF7A593),
+    const Color(0xffD3B0E0),
+    const Color(0xffFDE598),
+    const Color(0xffB7DFF5),
+  ];
+
+  List<Map<String, dynamic>> catInfo = [
+    {
+      'imgPath': 'images/cat/fruits.png',
+      'catText': 'Fruits',
+    },
+    {
+      'imgPath': 'images/cat/veg.png',
+      'catText': 'Vegetables',
+    },
+    {
+      'imgPath': 'images/cat/Spinach.png',
+      'catText': 'Herbs',
+    },
+    {
+      'imgPath': 'images/cat/nuts.png',
+      'catText': 'Nuts',
+    },
+    {
+      'imgPath': 'images/cat/spices.png',
+      'catText': 'Spices',
+    },
+    {
+      'imgPath': 'images/cat/grains.png',
+      'catText': 'Grains',
+    },
+  ];
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      padding: EdgeInsets.all(10),
-      crossAxisCount: 2,
-      childAspectRatio: 240 / 250,
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-      children: List.generate(
-        6,
-        (index) => CategoriesWidget(
-          imageUrl: testPic2,
-          title: "Tunç",
-          colorB: gridColors[index],
+    final utils = Utils(context: context);
+    Color color = utils.color;
+    return Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          title: Text(
+            "Categories",
+            style:
+                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 24),
+          ),
         ),
-      ),
-    );
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GridView.count(
+            crossAxisCount: 2,
+            childAspectRatio: 240 / 250,
+            crossAxisSpacing: 10, // Vertical spacing
+            mainAxisSpacing: 10, // Horizontal spacing
+            children: List.generate(6, (index) {
+              return CategoriesWidget(
+                catText: catInfo[index]['catText'],
+                imgPath: catInfo[index]['imgPath'],
+                passedColor: gridColors[index],
+              );
+            }),
+          ),
+        ));
   }
 }

@@ -32,14 +32,14 @@ class _FeedsItemsState extends State<FeedsItems> {
       color: Theme.of(context).cardColor,
       child: InkWell(
         onTap: () {
-          GlobalMethods.navigateTo(
-              context: context, routeName: DetailScreen.productDetail);
+          Navigator.of(context).pushNamed(DetailScreen.productDetail,
+              arguments: productProvier.id);
         },
         borderRadius: BorderRadius.circular(12),
         child: Column(
           children: [
             Image.network(
-             productProvier.imageUrl ,
+              productProvier.imageUrl,
               height: size.width * 0.22,
               width: size.width * 0.22,
               fit: BoxFit.fill,
@@ -54,7 +54,7 @@ class _FeedsItemsState extends State<FeedsItems> {
                   Flexible(
                     flex: 3,
                     child: Text(
-                     productProvier.title,
+                      productProvier.title,
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2!
@@ -89,7 +89,7 @@ class _FeedsItemsState extends State<FeedsItems> {
                           child: Row(
                             children: [
                               Text(
-                               productProvier.isPiece?"Piece":"Kg",
+                                productProvier.isPiece ? "Piece" : "Kg",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText2!

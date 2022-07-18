@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/providers/products_provider.dart';
+import 'package:providerfirebaseecom/view/shared/cat_screen.dart';
 import 'app/providers/provider_shelf.dart';
 import 'view/consts/consts_shelf.dart';
 import 'view/screens/screens_shelf.dart';
@@ -46,7 +47,7 @@ class _MyAppState extends State<MyApp> {
             theme: Styles.themeData(
                 isDarkTheme: themeProviderConsumer.getDarkTheme,
                 context: context),
-            home: HomeScreen(),
+            home: BottomBar(),
             routes: {
               OnSaleScreen.routeName: (context) => OnSaleScreen(),
               FeedsScreen.routeName: (context) => FeedsScreen(),
@@ -59,6 +60,7 @@ class _MyAppState extends State<MyApp> {
               RegisterScreen.routeName: (context) => RegisterScreen(),
               ForgetPasswordScreen.routeName: (context) =>
                   ForgetPasswordScreen(),
+              CatScreen.routeName: (context) => CatScreen(),
             },
           );
         },
