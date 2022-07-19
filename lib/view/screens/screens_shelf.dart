@@ -1,0 +1,15 @@
+export './bottom_bar/btm_br.dart';
+export './cart/cart_screen.dart';
+export './categories/categories_screen.dart';
+export './detail/detail_screen.dart';
+export './home/home_screen.dart';
+export './auth/login_screen.dart';
+export './auth/fPass_screen.dart';
+export './auth/register_screen.dart';
+export './cart/empty_screen.dart';
+export './feeds_screen/feeds_screen.dart';
+export './order/order_screen.dart';
+export './on_sale/on_sale_screen.dart';
+export './viewed/viewed.dart';
+export './wishlist/wishlist_screen.dart';
+export './user/user_screen.dart';

@@ -4,6 +4,30 @@ class Styles {
   static ThemeData themeData(
       {required bool isDarkTheme, required BuildContext context}) {
     return ThemeData(
+      appBarTheme: AppBarTheme(
+        backgroundColor: isDarkTheme ? Colors.white : Colors.black,
+      ),
+      textTheme: TextTheme(
+        headline1: TextStyle(
+          color: isDarkTheme ? Colors.blue[300] : Colors.red[900],
+          fontWeight: FontWeight.bold,
+          fontSize: 24,
+        ),
+        headline2: TextStyle(
+          color: isDarkTheme ? Colors.white : Colors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
+        bodyText1: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: isDarkTheme ? Colors.white : Colors.black,
+        ),
+        bodyText2: TextStyle(
+          fontWeight: FontWeight.w500,
+          color: isDarkTheme ? Colors.white : Colors.black,
+        ),
+      ),
       scaffoldBackgroundColor: isDarkTheme ? Colors.black : Colors.white,
       primaryColor: Colors.red[900],
       colorScheme: ThemeData().colorScheme.copyWith(
