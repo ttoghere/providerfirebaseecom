@@ -1,28 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:providerfirebaseecom/view/screens/detail/detail_screen.dart';
-import 'package:providerfirebaseecom/view/shared/heart_btn.dart';
-import '../../../app/services/global_methods.dart';
-import '../../../app/services/utils.dart';
+import 'package:provider/provider.dart';
+import 'package:providerfirebaseecom/app/classes/wishlist.dart';
+import 'package:providerfirebaseecom/app/providers/provider_shelf.dart';
 
-class WishlistWidget extends StatefulWidget {
+import '../../../app/providers/wishlist_provider.dart';
+import '../../../app/services/services_shelf.dart';
+import '../../shared/heart_btn.dart';
+import '../screens_shelf.dart';
+
+
+class WishlistWidget extends StatelessWidget {
   const WishlistWidget({Key? key}) : super(key: key);
 
   @override
-  State<WishlistWidget> createState() => _WishlistWidgetState();
-}
-
-class _WishlistWidgetState extends State<WishlistWidget> {
-  @override
   Widget build(BuildContext context) {
-    final Color color = Utils(context: context).color;
-    final Size size = Utils(context: context).screenSize;
+    final productProvider = Provider.of<ProductsProvider>(context);
+    final wishlistModel = Provider.of<WishlistItem>(context);
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
+    final getCurrProduct =
+        productProvider.findProdById(wishlistModel.productId);
+    double usedPrice = getCurrProduct.isOnSale
+        ? getCurrProduct.salePrice
+        : getCurrProduct.price;
+    bool? _isInWishlist =
+        wishlistProvider.getWishlistItems.containsKey(getCurrProduct.id);
+    final Color color = Utils(context:context).color;
+    Size size = Utils(context:context).screenSize;
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: GestureDetector(
         onTap: () {
-          GlobalMethods.navigateTo(
-              routeName: DetailScreen.productDetail, context: context);
+          Navigator.of(context).pushNamed(
+            DetailScreen.productDetail,
+            arguments: wishlistModel.productId,
+          );
         },
         child: Container(
           height: size.height * 0.20,
@@ -33,56 +45,59 @@ class _WishlistWidgetState extends State<WishlistWidget> {
           ),
           child: Row(
             children: [
-              Container(
-                margin: const EdgeInsets.only(left: 8),
-                width: size.width * 0.2,
-                height: size.width * 0.25,
-                child: Image.network(
-                  'https://i.ibb.co/F0s3FHQ/Apricots.png',fit: BoxFit.fill,
+              Flexible(
+                flex: 2,
+                child: Container(
+                  margin: const EdgeInsets.only(left: 8),
+                  height: size.width * 0.25,
+                  child: Image.network(
+                    getCurrProduct.imageUrl,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
-              Column(
-                children: [
-                  Flexible(
-                    child: Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            IconlyLight.bag2,
-                            color: color,
+              Flexible(
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              IconlyLight.bag2,
+                              color: color,
+                            ),
                           ),
-                        ),
-                        const HeartButton(),
-                      ],
+                          HeartButton(
+                            productId: getCurrProduct.id,
+                            isInWishlist: _isInWishlist,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Flexible(
-                      child: Text(
-                    "Title",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(fontSize: 18, color: color),
-                  )),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    "\$2.59",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(fontSize: 16, color: color),
-                  )
-                  // TextWidget(
-                  //   text: '\$2.59',
-                  //   color: color,
-                  //   textSize: 18.0,
-                  //   maxLines: 1,
-                  //   isTitle: true,
-                  // ),
-                ],
+                    Text(
+                      getCurrProduct.title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 18, color: color),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      "\$${usedPrice.toStringAsFixed(2)}",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 16, color: color),
+                    )
+                  ],
+                ),
               )
             ],
           ),

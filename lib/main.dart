@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:providerfirebaseecom/app/providers/products_provider.dart';
+import 'package:providerfirebaseecom/app/providers/cart_provider.dart';
+import 'package:providerfirebaseecom/app/providers/viewed_recently_provider.dart';
+import 'package:providerfirebaseecom/app/providers/wishlist_provider.dart';
 import 'package:providerfirebaseecom/view/shared/cat_screen.dart';
 import 'app/providers/provider_shelf.dart';
 import 'view/consts/consts_shelf.dart';
@@ -21,6 +23,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   DarkThemeProvider themeProvider = DarkThemeProvider();
   ProductsProvider productsProvider = ProductsProvider();
+  CartProvider cartProvider = CartProvider();
+  WishlistProvider wishlistProvider = WishlistProvider();
+  ViewedProdProvider viewedProvider = ViewedProdProvider();
 
   void getCurrentAppTheme() async {
     themeProvider.setDarkTheme = await themeProvider.darkThemePrefs.getTheme();
@@ -38,6 +43,9 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider.value(value: themeProvider),
         ChangeNotifierProvider.value(value: productsProvider),
+        ChangeNotifierProvider.value(value: cartProvider),
+        ChangeNotifierProvider.value(value: wishlistProvider),
+        ChangeNotifierProvider.value(value: viewedProvider),
       ],
       child: Consumer<DarkThemeProvider>(
         builder: (context, themeProviderConsumer, child) {

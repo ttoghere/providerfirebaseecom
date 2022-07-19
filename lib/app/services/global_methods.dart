@@ -35,6 +35,9 @@ class GlobalMethods {
           TextButton(
             onPressed: () {
               fct();
+              if (Navigator.of(context).canPop()) {
+                Navigator.of(context).pop();
+              }
             },
             child: Text(
               "Yes",

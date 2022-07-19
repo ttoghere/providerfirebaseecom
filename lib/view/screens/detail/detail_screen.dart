@@ -4,7 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/classes/product.dart';
+import 'package:providerfirebaseecom/app/providers/cart_provider.dart';
 import 'package:providerfirebaseecom/app/providers/provider_shelf.dart';
+import 'package:providerfirebaseecom/app/providers/viewed_recently_provider.dart';
+import '../../../app/providers/wishlist_provider.dart';
 import '../../../app/services/services_shelf.dart';
 import '../../consts/consts_shelf.dart';
 import '../../shared/heart_btn.dart';
@@ -32,11 +35,17 @@ class _DetailScreenState extends State<DetailScreen> {
     final productId = ModalRoute.of(context)!.settings.arguments as String;
     final productProvider = Provider.of<ProductsProvider>(context);
     final getCurrentProduct = productProvider.findProdById(productId);
+    final cartProvider = Provider.of<CartProvider>(context);
+    bool? isInCart =
+        cartProvider.getCartItems.containsKey(getCurrentProduct.id);
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
+    bool? isInWishlist =
+        wishlistProvider.getWishlistItems.containsKey(getCurrentProduct.id);
+    final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
     return WillPopScope(
-      onWillPop: () {
-        return Future.delayed(
-          Duration(milliseconds: 100),
-        );
+      onWillPop: () async {
+        viewedProdProvider.addProductToHistory(productId: productId);
+        return true;
       },
       child: Scaffold(
         appBar: AppBar(
@@ -56,7 +65,7 @@ class _DetailScreenState extends State<DetailScreen> {
           Flexible(
             flex: 2,
             child: Image.network(
-             getCurrentProduct.imageUrl,
+              getCurrentProduct.imageUrl,
               fit: BoxFit.scaleDown,
               width: size.width,
             ),
@@ -88,7 +97,10 @@ class _DetailScreenState extends State<DetailScreen> {
                               .bodyText2!
                               .copyWith(fontSize: 25),
                         )),
-                        HeartButton()
+                        HeartButton(
+                          productId: getCurrentProduct.id,
+                          isInWishlist: isInWishlist,
+                        )
                       ],
                     ),
                   ),
@@ -250,12 +262,20 @@ class _DetailScreenState extends State<DetailScreen> {
                             color: Colors.green,
                             borderRadius: BorderRadius.circular(10),
                             child: InkWell(
-                              onTap: () {},
+                              onTap: isInCart
+                                  ? null
+                                  : () {
+                                      cartProvider.addProductsToCart(
+                                        productId: getCurrentProduct.id,
+                                        quantity: int.parse(
+                                            _quantityTextController.text),
+                                      );
+                                    },
                               borderRadius: BorderRadius.circular(10),
                               child: Padding(
                                 padding: const EdgeInsets.all(12.0),
                                 child: Text(
-                                  "Add To Cart",
+                                  isInCart ? "In Cart" : "Add To Cart",
                                 ),
                               ),
                             ),

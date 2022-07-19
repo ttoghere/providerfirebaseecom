@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
+import 'package:providerfirebaseecom/app/providers/cart_provider.dart';
 import '../../../app/providers/provider_shelf.dart';
 import '../screens_shelf.dart';
 
@@ -33,6 +34,7 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
     return Scaffold(
       // appBar: AppBar(
       //   title: Text(_pages[_selectedIndex]["title"]),
@@ -66,7 +68,7 @@ class _BottomBarState extends State<BottomBar> {
                 position: BadgePosition.topEnd(top: -7, end: -7),
                 badgeContent: FittedBox(
                   child: Text(
-                    "1",
+                    cartProvider.getCartItems.length.toString(),
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           color: Colors.white,
                           fontSize: 12,
