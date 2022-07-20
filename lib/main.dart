@@ -1,14 +1,22 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/providers/cart_provider.dart';
 import 'package:providerfirebaseecom/app/providers/viewed_recently_provider.dart';
 import 'package:providerfirebaseecom/view/shared/cat_screen.dart';
 import 'app/providers/provider_shelf.dart';
+import 'firebase_options.dart';
 import 'view/consts/consts_shelf.dart';
 import 'view/screens/screens_shelf.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   MyApp({
@@ -52,7 +60,7 @@ class _MyAppState extends State<MyApp> {
             theme: Styles.themeData(
                 isDarkTheme: themeProviderConsumer.getDarkTheme,
                 context: context),
-            home: BottomBar(),
+            home: LoginScreen(),
             routes: {
               OnSaleScreen.routeName: (context) => OnSaleScreen(),
               FeedsScreen.routeName: (context) => FeedsScreen(),

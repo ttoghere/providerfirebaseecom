@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/classes/product.dart';
+import 'package:providerfirebaseecom/app/services/global_methods.dart';
 import 'package:providerfirebaseecom/app/services/utils.dart';
+import 'package:providerfirebaseecom/view/consts/firebase_consts.dart';
 import 'package:providerfirebaseecom/view/screens/detail/detail_screen.dart';
 import 'package:providerfirebaseecom/view/shared/bag_btn.dart';
 import 'package:providerfirebaseecom/view/shared/price_widget.dart';
@@ -64,6 +67,12 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                           BagButton(
                             isInCart: isInCart,
                             funcs: () {
+                              final User? user = authInstance.currentUser;
+                              if (user == null) {
+                                GlobalMethods.errorDialog(
+                                    context: context,
+                                    subtitle: "No user found please log in");
+                              }
                               cartProvider.addProductsToCart(
                                 productId: productProvider.id,
                                 quantity: int.parse(quantityCountTec.text),

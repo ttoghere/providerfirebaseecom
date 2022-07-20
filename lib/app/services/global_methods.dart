@@ -47,5 +47,33 @@ class GlobalMethods {
         ],
       ),
     );
+  } static Future<void> errorDialog({
+    required BuildContext context,
+    required String subtitle,
+  }) async {
+    return await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          "An error occured",
+          textAlign: TextAlign.center,
+        ),
+        content: Text(subtitle),
+        actions: [
+          TextButton(
+            onPressed: () {
+              if (Navigator.of(context).canPop()) {
+                Navigator.of(context).pop();
+              }
+            },
+            child: Text(
+              "Ok",
+              style: TextStyle(color: Colors.red[900]),
+            ),
+          ),
+      
+        ],
+      ),
+    );
   }
 }

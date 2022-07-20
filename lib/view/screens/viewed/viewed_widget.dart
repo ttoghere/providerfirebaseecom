@@ -1,13 +1,13 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/classes/viewed_recently.dart';
 import 'package:providerfirebaseecom/app/providers/cart_provider.dart';
 import 'package:providerfirebaseecom/app/providers/products_provider.dart';
-import 'package:providerfirebaseecom/app/providers/viewed_recently_provider.dart';
 import 'package:providerfirebaseecom/view/screens/screens_shelf.dart';
 import '../../../app/services/services_shelf.dart';
+import '../../consts/firebase_consts.dart';
 
 class ViewedRecentlyWidget extends StatefulWidget {
   const ViewedRecentlyWidget({Key? key}) : super(key: key);
@@ -23,7 +23,6 @@ class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
     final productProvider = Provider.of<ProductsProvider>(context);
     final viewedProdModel = Provider.of<ViewedProdModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
-    final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
     final getCurrentProduct =
         productProvider.findProdById(viewedProdModel.productId);
     double usedPrice = getCurrentProduct.isOnSale
@@ -35,8 +34,8 @@ class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-          GlobalMethods.navigateTo(
-              context: context, routeName: DetailScreen.productDetail);
+          // GlobalMethods.navigateTo(
+          //     context: context, routeName: DetailScreen.productDetail);
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -83,6 +82,12 @@ class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
                     onTap: isInCart
                         ? null
                         : () {
+                            final User? user = authInstance.currentUser;
+                            if (user == null) {
+                              GlobalMethods.errorDialog(
+                                  context: context,
+                                  subtitle: "No user found please log in");
+                            }
                             cartProvider.addProductsToCart(
                                 productId: getCurrentProduct.id, quantity: 1);
                           },

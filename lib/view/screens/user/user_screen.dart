@@ -3,6 +3,8 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/providers/dark_theme_provider.dart';
 import 'package:providerfirebaseecom/app/services/global_methods.dart';
+import 'package:providerfirebaseecom/view/consts/firebase_consts.dart';
+import 'package:providerfirebaseecom/view/screens/auth/login_screen.dart';
 import 'package:providerfirebaseecom/view/screens/order/order_screen.dart';
 import 'package:providerfirebaseecom/view/screens/viewed/viewed.dart';
 import 'package:providerfirebaseecom/view/shared/theme_switch.dart';
@@ -103,17 +105,27 @@ class _UserScreenState extends State<UserScreen> {
         ),
         ThemeSwitch(themeState: themeState),
         OptionTile(
-          title: "Log Out",
+          title: user == null ? "Log in" : "Log Out",
           subtitle: "Subtitle Here",
           onTap: () async {
             GlobalMethods.warningDialog(
               context: context,
-              title: "Sign Out",
-              subtitle: "Do you want to sign out?",
-              fct: () {},
+              title: user == null ? "Sign In" : "Sign Out",
+              subtitle: user == null
+                  ? "Do you want to sign in?"
+                  : "Do you want to sign out?",
+              fct: () {
+                if (user == null) {
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                }
+                authInstance.signOut().then((value) => Navigator.of(context)
+                    .pushReplacement(MaterialPageRoute(
+                        builder: (context) => LoginScreen())));
+              },
             );
           },
-          icon: IconlyBold.logout,
+          icon: user == null ? IconlyBold.login : IconlyBold.logout,
         ),
       ],
     );

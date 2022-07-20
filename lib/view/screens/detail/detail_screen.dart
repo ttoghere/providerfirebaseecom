@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +10,7 @@ import 'package:providerfirebaseecom/app/providers/provider_shelf.dart';
 import 'package:providerfirebaseecom/app/providers/viewed_recently_provider.dart';
 import '../../../app/services/services_shelf.dart';
 import '../../consts/consts_shelf.dart';
+import '../../consts/firebase_consts.dart';
 
 class DetailScreen extends StatefulWidget {
   static const productDetail = "/productdetail";
@@ -256,6 +258,14 @@ class _DetailScreenState extends State<DetailScreen> {
                               onTap: isInCart
                                   ? null
                                   : () {
+                                      final User? user =
+                                          authInstance.currentUser;
+                                      if (user == null) {
+                                        GlobalMethods.errorDialog(
+                                            context: context,
+                                            subtitle:
+                                                "No user found please log in");
+                                      }
                                       cartProvider.addProductsToCart(
                                         productId: getCurrentProduct.id,
                                         quantity: int.parse(

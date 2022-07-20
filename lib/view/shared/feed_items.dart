@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +8,8 @@ import 'package:providerfirebaseecom/app/services/utils.dart';
 import 'package:providerfirebaseecom/view/screens/detail/detail_screen.dart';
 import 'package:providerfirebaseecom/view/shared/price_widget.dart';
 import '../../app/classes/classes_shelf.dart';
+import '../../app/services/services_shelf.dart';
+import '../consts/firebase_consts.dart';
 
 class FeedsItems extends StatefulWidget {
   @override
@@ -131,6 +134,12 @@ class _FeedsItemsState extends State<FeedsItems> {
                       onPressed: isInCart
                           ? null
                           : () {
+                              final User? user = authInstance.currentUser;
+                              if (user == null) {
+                                GlobalMethods.errorDialog(
+                                    context: context,
+                                    subtitle: "No user found please log in");
+                              }
                               cartProvider.addProductsToCart(
                                 productId: productProvier.id,
                                 quantity: int.parse(saleCountEC.text),
