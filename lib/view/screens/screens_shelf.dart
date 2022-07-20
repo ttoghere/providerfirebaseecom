@@ -11,5 +11,4 @@ export './feeds_screen/feeds_screen.dart';
 export './order/order_screen.dart';
 export './on_sale/on_sale_screen.dart';
 export './viewed/viewed.dart';
-export './wishlist/wishlist_screen.dart';
 export './user/user_screen.dart';

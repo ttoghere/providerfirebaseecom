@@ -7,10 +7,8 @@ import 'package:providerfirebaseecom/app/classes/product.dart';
 import 'package:providerfirebaseecom/app/providers/cart_provider.dart';
 import 'package:providerfirebaseecom/app/providers/provider_shelf.dart';
 import 'package:providerfirebaseecom/app/providers/viewed_recently_provider.dart';
-import '../../../app/providers/wishlist_provider.dart';
 import '../../../app/services/services_shelf.dart';
 import '../../consts/consts_shelf.dart';
-import '../../shared/heart_btn.dart';
 
 class DetailScreen extends StatefulWidget {
   static const productDetail = "/productdetail";
@@ -38,9 +36,6 @@ class _DetailScreenState extends State<DetailScreen> {
     final cartProvider = Provider.of<CartProvider>(context);
     bool? isInCart =
         cartProvider.getCartItems.containsKey(getCurrentProduct.id);
-    final wishlistProvider = Provider.of<WishlistProvider>(context);
-    bool? isInWishlist =
-        wishlistProvider.getWishlistItems.containsKey(getCurrentProduct.id);
     final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
     return WillPopScope(
       onWillPop: () async {
@@ -97,10 +92,6 @@ class _DetailScreenState extends State<DetailScreen> {
                               .bodyText2!
                               .copyWith(fontSize: 25),
                         )),
-                        HeartButton(
-                          productId: getCurrentProduct.id,
-                          isInWishlist: isInWishlist,
-                        )
                       ],
                     ),
                   ),

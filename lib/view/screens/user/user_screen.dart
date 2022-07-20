@@ -5,7 +5,6 @@ import 'package:providerfirebaseecom/app/providers/dark_theme_provider.dart';
 import 'package:providerfirebaseecom/app/services/global_methods.dart';
 import 'package:providerfirebaseecom/view/screens/order/order_screen.dart';
 import 'package:providerfirebaseecom/view/screens/viewed/viewed.dart';
-import 'package:providerfirebaseecom/view/screens/wishlist/wishlist_screen.dart';
 import 'package:providerfirebaseecom/view/shared/theme_switch.dart';
 
 import 'widgets/option_tile.dart';
@@ -86,15 +85,6 @@ class _UserScreenState extends State<UserScreen> {
                 context: context, routeName: OrdersScreen.routeName);
           },
           icon: IconlyBold.bag2,
-        ),
-        OptionTile(
-          title: "Wishlist",
-          subtitle: "Subtitle Here",
-          onTap: () {
-            GlobalMethods.navigateTo(
-                context: context, routeName: WishlistScreen.routeName);
-          },
-          icon: IconlyBold.heart,
         ),
         OptionTile(
           title: "Viewed",

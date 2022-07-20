@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/providers/cart_provider.dart';
 import 'package:providerfirebaseecom/app/providers/viewed_recently_provider.dart';
-import 'package:providerfirebaseecom/app/providers/wishlist_provider.dart';
 import 'package:providerfirebaseecom/view/shared/cat_screen.dart';
 import 'app/providers/provider_shelf.dart';
 import 'view/consts/consts_shelf.dart';
@@ -24,7 +23,6 @@ class _MyAppState extends State<MyApp> {
   DarkThemeProvider themeProvider = DarkThemeProvider();
   ProductsProvider productsProvider = ProductsProvider();
   CartProvider cartProvider = CartProvider();
-  WishlistProvider wishlistProvider = WishlistProvider();
   ViewedProdProvider viewedProvider = ViewedProdProvider();
 
   void getCurrentAppTheme() async {
@@ -44,7 +42,6 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider.value(value: themeProvider),
         ChangeNotifierProvider.value(value: productsProvider),
         ChangeNotifierProvider.value(value: cartProvider),
-        ChangeNotifierProvider.value(value: wishlistProvider),
         ChangeNotifierProvider.value(value: viewedProvider),
       ],
       child: Consumer<DarkThemeProvider>(
@@ -60,7 +57,6 @@ class _MyAppState extends State<MyApp> {
               OnSaleScreen.routeName: (context) => OnSaleScreen(),
               FeedsScreen.routeName: (context) => FeedsScreen(),
               DetailScreen.productDetail: (context) => DetailScreen(),
-              WishlistScreen.routeName: (context) => WishlistScreen(),
               OrdersScreen.routeName: (context) => OrdersScreen(),
               ViewedRecentlyScreen.routeName: (context) =>
                   ViewedRecentlyScreen(),

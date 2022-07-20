@@ -2,16 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:providerfirebaseecom/app/classes/product.dart';
 import 'package:providerfirebaseecom/app/services/utils.dart';
-import 'package:providerfirebaseecom/view/consts/const_variables.dart';
 import 'package:providerfirebaseecom/view/screens/detail/detail_screen.dart';
-import 'package:providerfirebaseecom/view/screens/on_sale/on_sale_screen.dart';
 import 'package:providerfirebaseecom/view/shared/bag_btn.dart';
-import 'package:providerfirebaseecom/view/shared/heart_btn.dart';
 import 'package:providerfirebaseecom/view/shared/price_widget.dart';
-
 import '../../app/providers/cart_provider.dart';
-import '../../app/providers/wishlist_provider.dart';
-import '../../app/services/global_methods.dart';
 
 class OnSaleWidget extends StatefulWidget {
   const OnSaleWidget({Key? key}) : super(key: key);
@@ -28,9 +22,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
     final productProvider = Provider.of<Product>(context);
     CartProvider cartProvider = Provider.of<CartProvider>(context);
     bool? isInCart = cartProvider.getCartItems.containsKey(productProvider.id);
-    final wishlistProvider = Provider.of<WishlistProvider>(context);
-    bool? isInWishlist =
-        wishlistProvider.getWishlistItems.containsKey(productProvider.id);
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8),
       child: Material(
@@ -78,10 +70,6 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                               );
                             },
                           ),
-                          HeartButton(
-                            productId: productProvider.id,
-                            isInWishlist: isInWishlist,
-                          )
                         ]),
                         PriceWidget(
                           price: productProvider.price,

@@ -5,14 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:providerfirebaseecom/app/classes/cart.dart';
-import 'package:providerfirebaseecom/app/classes/product.dart';
 import 'package:providerfirebaseecom/app/providers/cart_provider.dart';
 import 'package:providerfirebaseecom/app/providers/products_provider.dart';
-import 'package:providerfirebaseecom/app/providers/wishlist_provider.dart';
 import 'package:providerfirebaseecom/app/services/utils.dart';
-import 'package:providerfirebaseecom/view/consts/const_variables.dart';
 import 'package:providerfirebaseecom/view/screens/detail/detail_screen.dart';
-import 'package:providerfirebaseecom/view/shared/heart_btn.dart';
 
 class CartWidget extends StatefulWidget {
   final int q;
@@ -46,9 +42,6 @@ class _CartWidgetState extends State<CartWidget> {
     final cartModel = Provider.of<Cart>(context);
     final getCurrProduct = productProvider.findProdById(cartModel.productId);
     final cartProvider = Provider.of<CartProvider>(context);
-    final wishlistProvider = Provider.of<WishlistProvider>(context);
-    bool? isInWishlist =
-        wishlistProvider.getWishlistItems.containsKey(getCurrProduct.id);
     double userPrice = getCurrProduct.isOnSale
         ? getCurrProduct.salePrice
         : getCurrProduct.price;
@@ -184,13 +177,6 @@ class _CartWidgetState extends State<CartWidget> {
                         color: Colors.red[900],
                         size: 18,
                       ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    HeartButton(
-                      productId: getCurrProduct.id,
-                      isInWishlist: isInWishlist,
                     ),
                     Text(
                       "\$${userPrice.toStringAsFixed(2)}",
