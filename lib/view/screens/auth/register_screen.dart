@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -51,10 +52,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
     if (isValid) {
       _formKey.currentState!.save();
-      await authInstance.createUserWithEmailAndPassword(
-        email: _emailTextController.text.toLowerCase().trim(),
-        password: _passTextController.text.trim(),
-      );
+      final User? user = authInstance.currentUser;
+      final uid = user!.uid;
+      await fFirestore.collection("users").doc(uid).set({
+        "id": uid,
+        "name": _fullNameController.text,
+        "email": _emailTextController.text.toLowerCase(),
+        "shipping-address": _addressTextController.text,
+        "userCart": [],
+        "createdAt": Timestamp.now(),
+      });
       try {
         await authInstance
             .createUserWithEmailAndPassword(
